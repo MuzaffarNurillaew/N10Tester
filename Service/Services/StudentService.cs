@@ -17,7 +17,10 @@ internal class StudentService : IStudentService
     {
         if (student == null)
             throw new ArgumentNullException(nameof(student));
-
+        var users = _userRepository.GetAll();
+        if (users.Any(studentA => studentA.CrmId == student.CrmId ||
+                studentA.ProjectPath == student.ProjectPath))
+            throw new ArgumentException("This user already exists.");
         return _userRepository.Create(student);
     }
 

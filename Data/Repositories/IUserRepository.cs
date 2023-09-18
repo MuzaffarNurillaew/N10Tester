@@ -8,6 +8,5 @@ public interface IUserRepository
     Student Update(Student student);
     bool Delete(long id);
     Student GetById(long id);
-    IEnumerable<Student> GetAll();
-    bool WriteAll(IEnumerable<Student> students);
+    List<Student> GetAll();
 }
