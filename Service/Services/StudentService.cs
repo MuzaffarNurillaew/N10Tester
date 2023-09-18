@@ -1,4 +1,5 @@
 ﻿using N10Tester.Data.Config;
+using N10Tester.Data.Repositories;
 using N10Tester.Domain.Entities;
 using N10Tester.Service.Interface;
 using Newtonsoft.Json;
@@ -7,37 +8,38 @@ namespace N10Tester.Service.Services;
 
 internal class StudentService : IStudentService
 {
+    private readonly IUserRepository _userRepository;
+
+    public StudentService(IUserRepository userRepository)
+    {
+        _userRepository = userRepository;
+    }
+
     public Student Create(Student student)
     {
-        throw new NotImplementedException();
+        if (student == null)
+            throw new ArgumentNullException(nameof(student));
+
+        return _userRepository.Create(student);
     }
 
     public bool Delete(long id)
     {
-        throw new NotImplementedException();
+        return _userRepository.Delete(id);
     }
 
     public IEnumerable<Student> GetAll()
     {
-        string source = null;
-        if (File.Exists(Constants.STUDENT_DB))
-            source = File.ReadAllText(Constants.STUDENT_DB);
-
-        if (!string.IsNullOrWhiteSpace(source))
-        {
-            var users = JsonConvert.DeserializeObject<IEnumerable<Student>>(source);
-
-            return users;
-        }
+        return _userRepository.GetAll();
     }
 
     public Student GetById(long id)
     {
-        throw new NotImplementedException();
+        return _userRepository.GetById(id);
     }
 
     public Student Update(Student student)
     {
-        throw new NotImplementedException();
+        return _userRepository.Update(student);
     }
 }

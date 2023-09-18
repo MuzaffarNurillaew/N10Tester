@@ -9,4 +9,5 @@ public interface IUserRepository
     bool Delete(long id);
     Student GetById(long id);
     IEnumerable<Student> GetAll();
+    bool WriteAll(IEnumerable<Student> students);
 }
