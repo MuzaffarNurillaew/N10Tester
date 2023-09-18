@@ -8,6 +8,12 @@ public class UserRepository : IUserRepository
 {
     public Student Create(Student student)
     {
+        if (!Directory.Exists(student.ProjectPath))
+            throw new DirectoryNotFoundException($"{student.ProjectPath} not found!");
+
+        if (!Directory.Exists(Path.Combine(student.ProjectPath, ".git")))
+            throw new DirectoryNotFoundException("Git directory not found!");
+            
         student.CreatedAt = DateTime.UtcNow;
         var students = GetAll();
         if (!students.Any())
