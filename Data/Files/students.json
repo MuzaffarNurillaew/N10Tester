@@ -1,0 +1,29 @@
+[
+  {
+    "Id": 1,
+    "FirstName": "Azizbek",
+    "LastName": "Abdurahmonov",
+    "ProjectPath": "projects/path/",
+    "CrmId": "ID1234",
+    "CreatedAt": "2023-09-16T05:03:48.293012-12:00",
+    "UpdatedAt": null
+  },
+  {
+    "Id": 2,
+    "FirstName": "Azizbek",
+    "LastName": "Abdurahmonov",
+    "ProjectPath": "projects/path/",
+    "CrmId": "ID1234",
+    "CreatedAt": "2023-09-16T05:05:09.574657-12:00",
+    "UpdatedAt": null
+  },
+  {
+    "Id": 3,
+    "FirstName": "Gishtmat",
+    "LastName": "Toshmatov",
+    "ProjectPath": "updated/project/path",
+    "CrmId": "ID9001",
+    "CreatedAt": "2023-09-16T05:06:50.949328-12:00",
+    "UpdatedAt": "2023-09-16T05:08:43.8145302-12:00"
+  }
+]
