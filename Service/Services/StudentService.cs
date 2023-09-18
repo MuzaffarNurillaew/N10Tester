@@ -1,8 +1,6 @@
-﻿using N10Tester.Data.Config;
-using N10Tester.Data.Repositories;
+﻿using N10Tester.Data.Repositories;
 using N10Tester.Domain.Entities;
 using N10Tester.Service.Interface;
-using Newtonsoft.Json;
 
 namespace N10Tester.Service.Services;
 
