@@ -1,8 +1,6 @@
-﻿using Microsoft.VisualBasic;
-using N10Tester.Domain.Entities;
+﻿using N10Tester.Domain.Entities;
 using Newtonsoft.Json;
 using Constants = N10Tester.Data.Config.Constants;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace N10Tester.Data.Repositories;
 
@@ -15,12 +13,19 @@ public class UserRepository : IUserRepository
 
         if (!Directory.Exists(Path.Combine(student.ProjectPath, ".git")))
             throw new DirectoryNotFoundException("Git directory not found!");
-
-
+            
+        student.CreatedAt = DateTime.UtcNow;
         var students = GetAll();
-        var updatedStudents = students.ToList();
-        updatedStudents.Add(student);
-        WriteAll(updatedStudents);
+        if (!students.Any())
+        {
+            student.Id = 1;
+        }
+        else
+        {
+            student.Id = students.Max(x => x.Id) + 1;
+        }
+        students.Add(student);
+        WriteAll(students);
         return student;
     }
 
@@ -30,16 +35,15 @@ public class UserRepository : IUserRepository
         var foundedStudent = students.FirstOrDefault(x => x.Id == id);
         if (foundedStudent != null)
         {
-            var updatedStudents = students.ToList();
-            updatedStudents.Remove(foundedStudent);
-            WriteAll(updatedStudents);
+            students.Remove(foundedStudent);
+            WriteAll(students);
             return true;
         }
 
         return false;
     }
 
-    public IEnumerable<Student> GetAll()
+    public List<Student> GetAll()
     {
         List<Student> students;
 
@@ -49,12 +53,12 @@ public class UserRepository : IUserRepository
             students = new List<Student>();
             return students;
         }
-
+        
         students = JsonConvert.DeserializeObject<List<Student>>(allText);
         return students;
     }
 
-    public bool WriteAll(IEnumerable<Student> students)
+    private bool WriteAll(IEnumerable<Student> students)
     {
         try
         {
@@ -83,7 +87,7 @@ public class UserRepository : IUserRepository
             foundedStudent.LastName = student.LastName;
             foundedStudent.ProjectPath = student.ProjectPath;
             foundedStudent.CrmId = student.CrmId;
-            foundedStudent.UpdatedAt = DateTime.Now;
+            foundedStudent.UpdatedAt = DateTime.UtcNow;
 
             WriteAll(students);
         }

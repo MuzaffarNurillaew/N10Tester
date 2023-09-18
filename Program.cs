@@ -11,6 +11,10 @@ internal class Program
         var service = new StudentService(repo);
 
         service.Create(new Student(4, "Toshmat", "Gishtmatov", "project/toshmatOff/sln", "ID0"));
-        
+       
+        if (args.Length != 0)
+        {
+
+        }
     }
 }
